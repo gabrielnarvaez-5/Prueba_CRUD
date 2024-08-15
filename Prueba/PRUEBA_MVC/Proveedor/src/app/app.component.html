@@ -1,0 +1,344 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Prueba Angular</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              >Disabled</a
+            >
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="flex-shrink-0">
+  <div class="container">
+    <h1 class="mt-5">Lista de Proveedores</h1>
+
+    <table class="table table-striped table-bordered table-responsive">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th>Telefono</th>
+          <th>email</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        @for (proveedor of listaProveedores; track $index) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ proveedor.nombre }}</td>
+          <td>{{ proveedor.direccion }}</td>
+          <td>{{ proveedor.telefono }}</td>
+          <td>
+            <input
+              type="text"
+              [value]="proveedor.email"
+              (input)="verDescripcionProv($event, proveedor)"
+              class="form-control"
+              placeholder="Email"
+            />
+          </td>
+
+          <td>
+            <button type="button" class="btn btn-outline-success"
+              (click)="actualizarProveedor(proveedor.proveedor_id, proveedor.nombre, proveedor.direccion, proveedor.telefono, proveedor.email)"
+            >   
+              Actualizar
+            </button>
+            <button
+              (click)="eliminarProveedor(proveedor.proveedor_id)"
+              type="button"
+              class="btn btn-outline-danger"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <!-- buscar proveedores -->
+    <h2 class="mt-5">Buscar Proveedor</h2>
+    <div class="input-group mb-3">
+      <input
+        #nombreProveedorInput
+        type="text"
+        class="form-control"
+        placeholder="Ingrese el Nombre del Proveedor"
+        aria-label="Ingrese el Nombre del Proveedor"
+      />
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        (click)="buscarProveedorPorNombre(nombreProveedorInput.value)"
+      >
+        Buscar Proveedor
+      </button>
+    </div>
+
+      <!-- Proveedor -->
+    <table class="table table-striped table-bordered table-responsive">
+        <thead class="table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ proveedorEncontrado?.nombre || 'N/A' }}</td>
+            <td>{{ proveedorEncontrado?.direccion || 'N/A' }}</td>
+            <td>{{ proveedorEncontrado?.telefono || 'N/A' }}</td>
+            <td>{{ proveedorEncontrado?.email || 'N/A' }}</td>
+          </tr>
+        </tbody>
+    </table>
+      
+      <!-- Mensaje si no se encuentra el producto -->
+      <div class="alert alert-warning" [style.display]="proveedorEncontrado ? 'none' : 'block'">
+        No se encontró el proveedor.
+      </div>
+    
+      <!-- Insertar proveedor -->
+        <table class="table table-bordered table-responsive">
+          <thead class="table-dark">
+            <tr>
+              <th colspan="2">Insertar Nuevo Proveedor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><label for="nombre">Nombre del Proveedor:</label></td>
+              <td><input id="nombre" #nombreProvInput required></td>
+            </tr>
+            <tr>
+              <td><label for="direccion">Dirección del Proveedor:</label></td>
+              <td><input id="direccion" #direccionProvInput required></td>
+            </tr>
+            <tr>
+              <td><label for="telefono">Teléfono del Proveedor:</label></td>
+              <td><input id="telefono" type="number" #telefonoProdvInput required></td>
+            </tr>
+            <tr>
+              <td><label for="email">Email del Proveedor:</label></td>
+              <td><input id="email" type="number" #emailProdvInput required></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <button 
+                  class="btn btn-outline-primary"
+                  (click)="insertarProveedor(nombreProvInput.value, direccionProvInput.value, telefonoProdvInput.value, emailProdvInput.value)">
+                  Guardar Proveedor
+                </button>
+              </td> 
+            </tr>
+          </tbody>
+        </table>
+
+    <h1 class="mt-5">Lista de Productos</h1>
+
+    <table class="table table-striped table-bordered table-responsive">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>ID Producto</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (producto of listaProductos; track $index) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ producto.producto_id }}</td>
+          <td>{{ producto.nombre }}</td>
+          <td>       
+            <input
+                type="text"
+                [value]="producto.descripcion"
+                (input)="verDescripcion($event, producto, 'descripcion')"
+                class="form-control"
+                placeholder="Descripcion del producto"
+              />
+          </td>
+          <td>       
+            <input
+                type="text"
+                [value]="producto.precio"
+                (input)="verDescripcion($event, producto, 'precio')"
+                class="form-control"
+                placeholder="Precio"
+              />
+          </td>
+          <td>{{ producto.stock }}</td>
+
+          <td>
+            <button type="button" class="btn btn-outline-success"
+              (click)="actualizarProducto(producto.producto_id, producto.nombre, producto.descripcion, producto.precio, producto.stock)"
+            > 
+              Actualizar
+            </button>
+            <button
+              (click)="eliminarProducto(producto.producto_id)"
+              type="button"
+              class="btn btn-outline-danger"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+      
+    <!-- buscar produtos -->
+    <h2 class="mt-5">Buscar Producto</h2>
+    <div class="input-group mb-3">
+      <input
+        #idProductoInput
+        type="number"
+        class="form-control"
+        placeholder="Ingrese el ID del Producto"
+        aria-label="Ingrese el ID del Producto"
+      />
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        (click)="buscarProductoPorId(idProductoInput.value)"
+      >
+        Buscar Producto
+      </button>
+    </div>
+    
+      <!-- Producto -->
+      <table class="table table-striped table-bordered table-responsive">
+        <thead class="table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ productoEncontrado?.nombre || 'N/A' }}</td>
+            <td>{{ productoEncontrado?.descripcion || 'N/A' }}</td>
+            <td>{{ productoEncontrado?.precio || 'N/A' }}</td>
+            <td>{{ productoEncontrado?.stock || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Mensaje si no se encuentra el producto -->
+      <div class="alert alert-warning" [style.display]="productoEncontrado ? 'none' : 'block'">
+        No se encontró el producto.
+      </div>
+    
+    <!-- formulario productos-->
+    <table class="table table-bordered table-responsive">
+      <thead class="table-dark">
+        <tr>
+          <th colspan="2">Nueva orden de compra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><label for="nombre">Nombre del producto:</label></td>
+          <td><input id="nombre" #nombreProductoInput required></td>
+        </tr>
+        <tr>
+          <td><label for="descripcion">Descripcion del producto:</label></td>
+          <td><input id="descripcion" #descripcionProductoInput required></td>
+        </tr>
+        <tr>
+          <td><label for="precio">Precio del producto por unidad:</label></td>
+          <td><input id="precio" type="number" #precioProductoInput required></td>
+        </tr>
+        <tr>
+          <td><label for="stock">Stock del producto:</label></td>
+          <td><input id="stock" type="number" #stockProductoInput required></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button 
+              class="btn btn-outline-primary"
+              (click)="insertarProducto(nombreProductoInput.value, descripcionProductoInput.value, precioProductoInput.value, stockProductoInput.value)">Guardar orden
+            </button>
+          </td> 
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+  </div>
+</footer>
+
+<router-outlet />
