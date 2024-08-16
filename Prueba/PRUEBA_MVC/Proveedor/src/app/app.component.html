@@ -103,7 +103,7 @@
               Actualizar
             </button>
             <button
-              (click)="eliminarProveedor(proveedor.proveedor_id)"
+              (click)="eliminar(proveedor.proveedor_id)"
               type="button"
               class="btn btn-outline-danger"
             >
@@ -179,12 +179,12 @@
               <td><label for="telefono">Teléfono del Proveedor:</label></td>
               <td><input id="telefono" type="number" #telefonoProdvInput required></td>
             </tr>
-            <tr>
+            <tr>  
               <td><label for="email">Email del Proveedor:</label></td>
-              <td><input id="email" type="number" #emailProdvInput required></td>
-            </tr>
+              <td><input id="email" type="text" #emailProdvInput required></td>
+            </tr> 
             <tr>
-              <td colspan="2">
+              <td colspan="2"> 
                 <button 
                   class="btn btn-outline-primary"
                   (click)="insertarProveedor(nombreProvInput.value, direccionProvInput.value, telefonoProdvInput.value, emailProdvInput.value)">

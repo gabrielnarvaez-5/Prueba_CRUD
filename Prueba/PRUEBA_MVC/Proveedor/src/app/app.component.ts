@@ -44,8 +44,15 @@ export class AppComponent implements OnInit {
     });
   }
 
-  eliminarProveedor(idProveedor: number) {
-    this.servicioProveedor.eliminar(idProveedor).subscribe(() => {
+  /*eliminarProveedor(proveedor_id: number) {
+    this.servicioProveedor.eliminar(proveedor_id).subscribe(() => {
+      this.cargarProveedores();
+    });
+  }*/
+
+  eliminar(proveedor_id: number) {
+    this.servicioProveedor.eliminar(proveedor_id).subscribe((data) => {
+      console.log(data);
       this.cargarProveedores();
     });
   }

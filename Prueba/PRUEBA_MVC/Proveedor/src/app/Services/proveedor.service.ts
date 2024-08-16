@@ -18,10 +18,10 @@ export class ProveedorService {
     return this.lector.get<Proveedor[]>(this.apiurl + 'todos');
   }
 
-  eliminar(idProveedor: number): Observable<any> {
+  eliminar(idProveedor: number): Observable<number> {
     const formData = new FormData();
     formData.append('proveedor_id', idProveedor.toString());
-    return this.lector.post<any>(this.apiurl + 'eliminar', formData);
+    return this.lector.post<number>(this.apiurl + 'eliminar', formData);
   }
 
   actualizar(proveedor: Proveedor): Observable<any> {
