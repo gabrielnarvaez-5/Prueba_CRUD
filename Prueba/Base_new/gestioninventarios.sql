@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-08-2024 a las 11:08:04
+-- Tiempo de generación: 16-08-2024 a las 03:44:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -52,8 +52,7 @@ INSERT INTO `productos` (`producto_id`, `nombre`, `descripcion`, `precio`, `stoc
 (9, 'Lavadora Samsung EcoBubble 8kg', 'Lavadora de carga frontal con tecnología EcoBubble y capacidad de 8kg.', 550.00, 25, 4),
 (10, 'Cámara Canon EOS R6', 'Cámara sin espejo full-frame con sensor de 20.1 MP y grabación 4K.', 2500.00, 5, 5),
 (12, 'Laptop Dell I5', 'PC gamer', 900.67, 12, NULL),
-(13, 'Laptop Dell I5', 'pc', 300.00, 12, NULL),
-(14, 'Laptop intel', 'laptop intel', 99.00, 5, NULL);
+(13, 'Laptop Dell I5', 'pc', 300.00, 12, NULL);
 
 -- --------------------------------------------------------
 
@@ -74,11 +73,11 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`proveedor_id`, `nombre`, `direccion`, `telefono`, `email`) VALUES
-(1, 'Tecnología Global S.A.', 'Calle 21 No. 455, Ciudad Central', '3412345678', 'contacto@tecnologiaglobal.com'),
 (2, 'Electro Hogar S.L.', 'Av. de la Innovación 112, Barcelona', '934567890', 'ventas@electrohogar.com'),
 (3, 'Insumos Industriales Ltda.', 'Parque Industrial 45, Ciudad Industrial', '712345678', 'info@insumosindustriales.com'),
-(4, 'Comercializadora Moderna', 'Paseo de las Flores 987, Madrid', '912345678', 'ventas@comercializadora.com'),
-(5, 'Distribuciones del Norte S.A.', 'Carretera Nacional Km 12, Monterrey', '91238976', 'contacto@distribucionesnorte.com.ec');
+(16, 'Laptop Dell I5', '1', '', '2432432'),
+(17, 'Laptop Dell I5', 'ca', '432', 'adsadsa'),
+(18, 'dewew', 'fewfewfe', '3435435', '@mail.com');
 
 --
 -- Índices para tablas volcadas
@@ -111,17 +110,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `proveedor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`proveedor_id`);
+  MODIFY `proveedor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
